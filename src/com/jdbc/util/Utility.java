@@ -17,12 +17,16 @@ public class Utility {
         System.out.println("Driver registered successfully.");
     }
 
-    public static Connection getDbConnection() throws SQLException {
+    public static Connection getDbConnection() {
         //establish connection
         String url="jdbc:mysql://localhost:3306/jdbc_student";
         String username ="root";
         String password="root";
-        return DriverManager.getConnection(url, username, password);
+        try {
+            return DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void closeResources(ResultSet rs, Statement st, Connection c) {
